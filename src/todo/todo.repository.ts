@@ -22,7 +22,7 @@ export class TodoRepository {
   updateTodo(id: number, dto: UpdateTodosDto) {
     return this.prisma.todos.update({
       where: { id },
-      data: dto
+      data: dto,
     });
   }
 
@@ -30,10 +30,10 @@ export class TodoRepository {
     return this.prisma.todos.findMany({
       include: {
         user: {
-          select: { id: true, name: true, email: true}
-        }
-      }
-    })
+          select: { id: true, name: true, email: true },
+        },
+      },
+    });
   }
 
   removeTodo(id: number) {
