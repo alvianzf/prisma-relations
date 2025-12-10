@@ -16,6 +16,10 @@ export class UsersService {
     return this.repo.findByEmail(email);
   }
 
+  findUserWithTodo(id: number) {
+    return this.repo.findTodo(id);
+  }
+
   findAll() {
     return this.repo.findUsersWithTodos();
   }
