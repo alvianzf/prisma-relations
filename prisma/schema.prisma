@@ -12,7 +12,7 @@ model Todos {
   id          Int     @id(map: "PK_d429b7114371f6a35c5cb4776a7") @default(autoincrement())
   title       String  @db.VarChar
   description String  @db.VarChar
-  completed   Boolean @default(false)
+  completed   Boolean? @default(false)
   createdAt   DateTime @default(now())
   userId  Int?
   user User? @relation(fields: [userId], references: [id]) // Create FK reference
@@ -22,6 +22,7 @@ model User {
   id  Int @id @default(autoincrement())
   email String @unique
   name String
+  password String
   todos Todos[] // Create relationship defininition
   createdAt DateTime @default(now())
 }
