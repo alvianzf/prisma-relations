@@ -25,4 +25,14 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async userLogin(email: string, pass: string) {
+    const payload = await this.validateUser(email, pass);
+
+    return this.login(payload);
+  }
 }
+
+//localhost:3000/auth
+// 1. ValidateUser
+// 2. return access_token
