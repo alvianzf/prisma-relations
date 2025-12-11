@@ -23,6 +23,7 @@ model User {
   email String @unique
   name String
   password String
+  refreshToken String?
   todos Todos[] // Create relationship defininition
   createdAt DateTime @default(now())
 }

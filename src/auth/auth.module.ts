@@ -6,6 +6,7 @@ import { UsersModule } from 'src/users/users.module';
 import { JwtStrategy } from './jwt.strategy';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { AuthController } from './auth.controller';
+import { ConfigModule } from '@nestjs/config';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -17,6 +18,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
     JwtModule.register({
       secret: JWT_SECRET || 'fallback',
       signOptions: { expiresIn: '1h' },
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
   ],
   controllers: [AuthController],
