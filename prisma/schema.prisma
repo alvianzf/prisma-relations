@@ -18,11 +18,16 @@ model Todos {
   user User? @relation(fields: [userId], references: [id]) // Create FK reference
 }
 
+enum Role {
+  ADMIN
+  USER
+}
 model User {
   id  Int @id @default(autoincrement())
   email String @unique
   name String
   password String
+  roles Role[]
   refreshToken String?
   todos Todos[] // Create relationship defininition
   createdAt DateTime @default(now())
