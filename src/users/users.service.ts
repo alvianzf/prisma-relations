@@ -30,7 +30,7 @@ export class UsersService {
 
   update(id: number, updateUserDto: UpdateUserDto) {
     // Implement prisma.user.update here if needed
-    return `This action updates a #${id} user`;
+    return this.repo.update(id, updateUserDto);
   }
 
   remove(id: number) {

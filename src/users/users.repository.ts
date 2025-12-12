@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
+import { common } from './password.library';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async createUser(data: { name: string; email: string; password: string }) {
+    if (common.includes(data.password)) {
+      return { message: 'password is too common' };
+    }
     const hashedPassword = bcrypt.hashSync(data.password, 10);
 
     return this.prisma.user.create({
@@ -41,5 +46,12 @@ export class UsersRepository {
     return this.prisma.user.findUnique({
       where: { email },
     });
+  }
+
+  update(id: number, data: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    })
   }
 }

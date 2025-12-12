@@ -11,10 +11,7 @@ export class AuthController {
   }
 
   @Post('refresh')
-  async refresh(@Request() req, @Body() userId) {
-    return this.authService.refreshTokens(
-      userId,
-      req.header.authorization?.split(' ')[1],
-    );
+  async refresh(@Request() req, @Body() user) {
+    return this.authService.refreshTokens(user.userId, user.token);
   }
 }
