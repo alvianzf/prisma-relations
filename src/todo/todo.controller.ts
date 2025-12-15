@@ -14,6 +14,7 @@ import { UpdateTodosDto } from './dto/update-todo.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
+import { OwnershipGuard } from 'src/auth/guards/ownership.guard';
 
 @Controller('todo')
 export class TodoController {
@@ -25,7 +26,7 @@ export class TodoController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, OwnershipGuard)
   @Roles('USER')
   findAll() {
     return this.todoService.findAll();

@@ -32,8 +32,6 @@ export class AuthService {
       role: user.roles,
     };
 
-    console.log('payload BEFORE signing:', payload);
-
     const access_token = this.jwtService.sign(payload, { expiresIn: '2h' });
     const refresh_token = this.jwtService.sign(payload, { expiresIn: '7d' });
 
@@ -52,10 +50,7 @@ export class AuthService {
 
   async userLogin(email: string, password: string) {
     const payload = await this.validateUser(email, password);
-    console.log({ payload });
     if (!payload) return null;
-
-    console.log({ payload });
 
     return this.login({
       email,

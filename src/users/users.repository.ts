@@ -52,6 +52,6 @@ export class UsersRepository {
     return this.prisma.user.update({
       where: { id },
       data,
-    })
+    });
   }
 }
