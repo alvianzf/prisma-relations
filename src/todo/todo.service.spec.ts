@@ -11,7 +11,7 @@ describe('TodoService', () => {
       findTodos: jest.fn(),
       createTodo: jest.fn(),
       findOne: jest.fn(),
-    } as jest.Mocked<TodoRepository>;
+    } as Partial<TodoRepository> as jest.Mocked<TodoRepository>;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [TodoService, { provide: TodoRepository, useValue: repo }],
