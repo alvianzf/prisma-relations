@@ -11,7 +11,7 @@ describe('TodoService', () => {
       findTodos: jest.fn(),
       createTodo: jest.fn(),
       findOne: jest.fn(),
-    } as any;
+    } as jest.Mocked<TodoRepository>;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [TodoService, { provide: TodoRepository, useValue: repo }],
@@ -38,15 +38,16 @@ describe('TodoService', () => {
     expect(result).toEqual(todos);
   });
 
-  it('create todos', async () => {
-    const todos = {
-      id: '1',
+  it('creates a todo', async () => {
+    const todo = {
+      id: 1,
       title: 'todos',
       description: 'create todo',
       completed: false,
     };
 
-    repo.createTodo.mockResolvedValue(todos);
+    repo.createTodo.mockResolvedValue(todo);
+
     const dto = {
       title: 'todos',
       description: 'create todo',
@@ -54,8 +55,8 @@ describe('TodoService', () => {
 
     const result = await service.create(dto);
 
-    expect(result.completed).toBe(false);
-    // expect(result).toEqual(todos);
     expect(repo.createTodo).toHaveBeenCalledWith(dto);
+    expect(result).toEqual(todo);
+    expect(result.completed).toBe(false);
   });
 });

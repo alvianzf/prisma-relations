@@ -14,13 +14,16 @@ export class UsersRepository {
     }
     const hashedPassword = bcrypt.hashSync(data.password, 10);
 
-    return this.prisma.user.create({
+    const userWithoutPassword: this.prisma.user.create({
       data: {
         name: data.name,
         email: data.email,
         password: hashedPassword,
       },
     });
+
+    const {pw: data.password, ...result} = userWithoutPassword;
+    return result;
   }
 
   findUsersWithTodos() {
