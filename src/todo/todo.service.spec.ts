@@ -31,8 +31,10 @@ describe('TodoService', () => {
     ];
 
     repo.findTodos.mockResolvedValue(todos);
+
     const result = await service.findAll();
 
+    expect(repo.findTodos).toHaveBeenCalled();
     expect(result).toEqual(todos);
   });
 
